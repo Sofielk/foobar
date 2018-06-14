@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Foo Bar - Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet"> </head>
+
+<body>
+    <header class="bar">
+        <h1 class="bar__name"></h1>
+        <p class="bar__name">Lukker: <span class="bar__name__time"></span></p>
+        <nav>
+            <a href="index.html">
+                <ul>Info</ul>
+            </a>
+            <a href="#">
+                <ul>News</ul>
+            </a>
+            <a href="#">
+                <ul>Schedule</ul>
+            </a>
+            <a href="#">
+                <ul>Login</ul>
+            </a>
+        </nav>
+    </header>
+    <main>
+        <div id="side-bar">
+            <ul>
+                <a href="bartender.html"><img src="images/bartender.svg" alt="bartender logo"> Bartenders on Duty</a>
+            </ul>
+            <ul>
+                <a href="customer.html"><img src="images/queue.svg" alt="queue logo"> Customer Flow</a>
+            </ul>
+            <ul id="active">
+                <a href="beer.html"><img src="images/beer.svg" alt="beer logo"> Beer Status</a>
+            </ul>
+        </div>
+        <div id="container">
+            <h1>Beer live status:</h1>
+            <section class="taps">
+                <ul class="taps__list"></ul>
+            </section>
+        </div>
+        <footer>
+            <p>&copy; Soliki</p>
+        </footer>
+    </main>
+    <script src="http://petlatkea.dk/2018/front/foobar.js"></script>
+    <script>
+        'use strict';
+        let interval = setInterval(function () {
+            document.querySelector('.taps__list').innerHTML = '';
+            const data = JSON.parse(FooBar.getData());
+            document.querySelector('.bar__name').innerHTML = data.bar.name
+            document.querySelector('.bar__name__time').innerHTML = data.bar.closingTime
+            const taps = document.querySelector('.taps__list');
+            for (var i = 0; i < data.taps.length; i++) {
+                let tap = document.createElement('li');
+                const tapData = data.taps[i];
+                //Set name
+                let name = document.createElement('h2');
+                name.innerHTML = tapData.beer;
+                //Set capacity
+                let cap = document.createElement('p');
+                cap.innerHTML = 'Capacity: ' + tapData.capacity + ' liters';
+                //Set level
+                let level = document.createElement('p');
+                level.innerHTML = 'Level: ' + tapData.level + ' liters';
+                //Set in use
+                let inUse = document.createElement('p');
+                inUse.innerHTML = tapData.inUse ? 'In use' : 'Not in use';
+                //Append all data to each tap
+                tap.appendChild(name);
+                tap.appendChild(cap);
+                tap.appendChild(level);
+                tap.appendChild(inUse);
+                //Append this tap to taps list
+                taps.appendChild(tap);
+                console.log(data.taps);
+            }
+        }, 1000);
+
+        function stop() {
+            clearInterval(interval);
+        }
+    </script>
+</body>
+
+</html>

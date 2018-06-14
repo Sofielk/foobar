@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Foo Bar - Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet"> </head>
+
+<body>
+    <header class="bar">
+        <h1 class="bar__name"></h1>
+        <p class="bar__name">Lukker: <span class="bar__name__time"></span></p>
+        <nav>
+            <a href="index.html">
+                <ul>Info</ul>
+            </a>
+            <a href="#">
+                <ul>News</ul>
+            </a>
+            <a href="#">
+                <ul>Schedule</ul>
+            </a>
+            <a href="#">
+                <ul>Login</ul>
+            </a>
+        </nav>
+    </header>
+    <main>
+        <div id="side-bar">
+            <ul>
+                <a href="bartender.html"><img src="images/bartender.svg" alt="bartender logo"> Bartenders on Duty</a>
+            </ul>
+            <ul>
+                <a href="customer.html"><img src="images/queue.svg" alt="queue logo"> Customer Flow</a>
+            </ul>
+            <ul>
+                <a href="beer.html"><img src="images/beer.svg" alt="beer logo"> Beer Status</a>
+            </ul>
+        </div>
+        <div id="container">
+            <h1>Welcome</h1>
+            <p>Lorizzle ipsum dope sizzle owned, dope adipiscing elit. Nullam sapizzle velit, i saw beyonces tizzles and my pizzle went crizzle volutpat, get down get down quis, gravida shiz, for sure. Pellentesque bow wow wow we gonna chung.
+                <br>Sed eros. Get down get down pizzle fo shizzle dapibizzle bling bling tempus tempor. Maurizzle pellentesque nibh et turpizzle. Vestibulum izzle tortor. Pellentesque crackalackin rhoncizzle nisi. </p>
+        </div>
+        <footer>
+            <p>&copy; Soliki</p>
+        </footer>
+    </main>
+    <script src="http://petlatkea.dk/2018/front/foobar.js"></script>
+    <script>
+        'use strict';
+        let data = JSON.parse(FooBar.getData());
+        document.querySelector('.bar__name').innerHTML = data.bar.name
+        document.querySelector('.bar__name__time').innerHTML = data.bar.closingTime
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Foo Bar - Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet"> </head>
+
+<body>
+    <header class="bar">
+        <h1 class="bar__name"></h1>
+        <p class="bar__name">Lukker: <span class="bar__name__time"></span></p>
+        <nav>
+            <a href="index.html">
+                <ul>Info</ul>
+            </a>
+            <a href="#">
+                <ul>News</ul>
+            </a>
+            <a href="#">
+                <ul>Schedule</ul>
+            </a>
+            <a href="#">
+                <ul>Login</ul>
+            </a>
+        </nav>
+    </header>
+    <main>
+        <div id="side-bar">
+            <ul id="active">
+                <a href="bartender.html"><img src="images/bartender.svg" alt="bartender logo"> Bartenders on Duty</a>
+            </ul>
+            <ul>
+                <a href="customer.html"><img src="images/queue.svg" alt="queue logo"> Customer Flow</a>
+            </ul>
+            <ul>
+                <a href="beer.html"><img src="images/beer.svg" alt="beer logo"> Beer Status</a>
+            </ul>
+        </div>
+        <div id="container">
+            <h1>Bartender live status:</h1>
+            <section class="bartenders">
+                <ul class="bartenders__list"></ul>
+            </section>
+        </div>
+        <footer>
+            <p>&copy; Soliki</p>
+        </footer>
+    </main>
+    <script src="http://petlatkea.dk/2018/front/foobar.js"></script>
+    <script>
+        'use strict';
+        let interval = setInterval(function () {
+            document.querySelector('.bartenders__list').innerHTML = '';
+            let data = JSON.parse(FooBar.getData());
+            document.querySelector('.bar__name').innerHTML = data.bar.name
+            document.querySelector('.bar__name__time').innerHTML = data.bar.closingTime
+                //
+            const bartenders = document.querySelector('.bartenders__list');
+            for (let i = 0; i < data.bartenders.length; i++) {
+                let bartender = document.createElement('li');
+                let bartenderData = data.bartenders[i];
+                //Set name
+                let name = document.createElement('h2');
+                name.innerHTML = bartenderData.name;
+                //Set customers
+                let servingCustomer = document.createElement('p');
+                servingCustomer.innerHTML = 'Customer: ' + bartenderData.servingCustomer;
+                //Set status
+                let stat = document.createElement('p');
+                stat.innerHTML = 'Status: ' + bartenderData.status;
+                //Set statusdetail
+                let statusDetail = document.createElement('p');
+                statusDetail.innerHTML = 'Task: ' + bartenderData.statusDetail;
+                //Set tap
+                let usingTap = document.createElement('p');
+                usingTap.innerHTML = 'Tap nr: ' + bartenderData.usingTap;
+                //Append all data to each bartender
+                bartender.appendChild(name);
+                bartender.appendChild(stat);
+                bartender.appendChild(statusDetail);
+                bartender.appendChild(usingTap);
+                bartender.appendChild(servingCustomer);
+                //Append all to list
+                bartenders.appendChild(bartender);
+            }
+        }, 1000);
+
+        function stop() {
+            clearInterval(interval);
+        }
+    </script>
+</body>
+
+</html>
